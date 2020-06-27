@@ -1,13 +1,10 @@
 export class HealthCheckResponse {
 
-    meta: HealthCheckMeta;
-    data: HealthCheckData;
-    error: string;
-
-}
-
-class HealthCheckMeta {
-    flowId: "123";
+    private status: HealthCheckStatusType;
+    
+    constructor(status: HealthCheckStatusType) {
+        this.status = status;
+    }
 }
 
 type HealthCheckStatusType = "SUCCESS" | "FAILURE"
