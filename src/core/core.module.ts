@@ -1,11 +1,14 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core';
 import { ResponseInterceptor } from './interceptor/response.interceptor';
 import { MetadataMiddleware } from './middleware/metadata.middleware';
+import { JoblikeExceptionFilter } from './exception/joblike-exception.filter';
 
 @Module({
   providers: [
     { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
+    { provide: APP_FILTER, useClass: JoblikeExceptionFilter,
+    }
   ],
   controllers: []
 })
