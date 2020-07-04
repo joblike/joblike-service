@@ -6,6 +6,5 @@ import { HealthController } from './health/health.controller';
 @Module({
   imports: [CoreModule, AuthModule],
   controllers: [HealthController],
-  providers: [],
 })
 export class AppModule {}

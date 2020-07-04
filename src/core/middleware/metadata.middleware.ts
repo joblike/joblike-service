@@ -1,12 +1,16 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, Logger } from '@nestjs/common';
 import { v4 as uuidGenerator } from 'uuid';
 import { MetadaModel } from '../model/metada.model';
 
 @Injectable()
 export class MetadataMiddleware implements NestMiddleware {
+
+  private readonly logger = new Logger(MetadataMiddleware.name);
+
+
   use(req: any, res: any, next: () => void) {
     req.meta = this.getMetaData();
-    console.log(`Received requesest with the following metada: ${JSON.stringify(req.meta)}`);
+    this.logger.log(`Received requesest with the following metada: ${JSON.stringify(req.meta)}`);
     next();
   }
 
