@@ -9,7 +9,6 @@ export class HealthController {
     @Get()
     healthCheck(@Req() request: any): HealthCheckResponse {
         this.logger.log(`Health check request - meta is ${JSON.stringify(request.meta)}`);
-
         return new HealthCheckResponse("SUCCESS");        
     }
 
