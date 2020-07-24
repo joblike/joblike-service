@@ -1,7 +1,11 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common';
 
 @Catch()
 export class JoblikeExceptionFilter<T> implements ExceptionFilter {
+
+  private readonly logger = new Logger(JoblikeExceptionFilter.name);
+
+
   catch(exception: T, host: ArgumentsHost) { 
 
     const ctx = host.switchToHttp();
@@ -16,6 +20,8 @@ export class JoblikeExceptionFilter<T> implements ExceptionFilter {
     const error = { status, path };
 
     response.status(status).json({meta, error});
+
+    this.logger.error(`Got an error: ${exception}`);
 
   }
 }
