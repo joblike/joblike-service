@@ -24,6 +24,24 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+In order to run locally you need to add an environment: 'JOBLIKE_TOKEN' with a random string (e.g. E4E14BAF6CE2F312345135BD74074CE7F48D12345B78099B6). You can generate it online.
+
+This is how I did it locally (MacOS):
+1. Create a file joblikeTokens.txt with the content:
+
+    ```
+    JOBLIKE_TOKEN=E4E14BAF6CE2F312345135BD74074CE7F48D12345B78099B6
+    ```
+    
+2. Then in .bash_profile (or any other file that is loaded from your terminal upon init) please add the following lines:
+    
+    ```bash
+    set -o allexport
+    source $HOME/Variables/joblikeTokens.txt
+    set +o allexport
+    
+Reload the terminal session. In case you are using visual code, then close and open it in order to reload its terminal session.
+
 ## Test
 
 ```bash
