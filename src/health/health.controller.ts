@@ -1,5 +1,6 @@
 import { Controller, Get, Req, Logger } from '@nestjs/common';
 import { HealthCheckResponse } from './response/health.response';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('health')
 export class HealthController {

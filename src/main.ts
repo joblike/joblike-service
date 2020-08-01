@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ResponseInterceptor } from './core/interceptor/response.interceptor';
 import { AppLogger } from './core/logger/app-logger';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { logger: new AppLogger()});
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+  await app.listen(configService.get('PORT'));
+
 }
 bootstrap();
