@@ -5,7 +5,6 @@ import { AuthenticationService } from './authentication/service/authentication.s
 import { LocalStrategy } from './authentication/service/local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from '../core/constants/jwt.constant';
 import { JwtStrategy } from '../gateway/security/strategy/jwt.strategy';
 import { CoreModule } from 'src/core/core.module';
 
@@ -15,7 +14,7 @@ import { CoreModule } from 'src/core/core.module';
     CoreModule,
     PassportModule.register({ defaultStrategy: 'jwt' }), 
     JwtModule.register({
-      secret: jwtConstants.secret,
+      secret: process.env.JOBLIKE_TOKEN,
       signOptions: { expiresIn: '60m' },
     }),
   ],
