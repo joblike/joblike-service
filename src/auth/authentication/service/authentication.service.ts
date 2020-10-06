@@ -24,9 +24,20 @@ export class AuthenticationService {
 
   async login(user: any) {
     const {userId, username, roles} = await this.userService.findOne(user.username);
+    this.logger.log(`Got a login from ${user.username}, email: ${user.email}`);
     const payload = {sub: userId, username, roles};
     return {
-      access_token: this.jwtService.sign(payload, {expiresIn: "1d"}),
+      accessToken: this.jwtService.sign(payload, {expiresIn: "1d"}),
+    }
+  }
+
+  async register(request: any) {
+    const email = request.email;
+    const existingUser = await this.userService.findOne(email);
+    if (existingUser) {
+      throw new Error(`Cannot register because user with email ${email} already exist`)
+    } else {
+      this.logger.log("lala!");
     }
   }
 

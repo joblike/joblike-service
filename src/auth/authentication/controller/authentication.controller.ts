@@ -13,6 +13,11 @@ export class AuthenticationController {
     return this.authService.login(req.user);
   }
 
+  @Post('register')
+  async register(@Body() req) {
+    return this.authService.register(req);
+  }
+
   @Post('permissions')
   async getProfile(@Body() user) {
     const permissions = await this.authService.getUserPermissions(user);

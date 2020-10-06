@@ -12,12 +12,19 @@ export class JoblikeExceptionFilter<T> implements ExceptionFilter {
     const response = ctx.getResponse();
     const { meta, path } = ctx.getRequest();
 
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+    let status;
+    let message;
 
-    const error = { status, path };
+    if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      message = exception.message;
+    } else {
+      status = HttpStatus.INTERNAL_SERVER_ERROR;
+      message = "Internal Server Error";
+
+    }
+
+    const error = { status, message, path };
 
     response.status(status).json({meta, error});
 
