@@ -1,5 +1,10 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common';
 
+interface ExceptionDetails { 
+  status: number, 
+  message: string,
+}
+
 @Catch()
 export class JoblikeExceptionFilter<T> implements ExceptionFilter {
 
@@ -12,6 +17,16 @@ export class JoblikeExceptionFilter<T> implements ExceptionFilter {
     const response = ctx.getResponse();
     const { meta, path } = ctx.getRequest();
 
+    const { status, message } = this.getStatusAndMessage(exception);
+    
+    const error = { status, message, path };
+
+    response.status(status).json({meta, error});
+
+    this.logger.error(`Got an error: ${exception}`);
+  }
+
+  private getStatusAndMessage(exception: T): ExceptionDetails {
     let status;
     let message;
 
@@ -21,14 +36,9 @@ export class JoblikeExceptionFilter<T> implements ExceptionFilter {
     } else {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       message = "Internal Server Error";
-
     }
 
-    const error = { status, message, path };
-
-    response.status(status).json({meta, error});
-
-    this.logger.error(`Got an error: ${exception}`);
-
+    return {status, message};
   }
+
 }
