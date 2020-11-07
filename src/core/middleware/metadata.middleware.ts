@@ -9,8 +9,12 @@ export class MetadataMiddleware implements NestMiddleware {
 
 
   use(req: any, res: any, next: () => void) {
+    if (req.meta) {
+      this.logger.log(`Old metadata: ${JSON.stringify(req.meta)}`);
+    }
+
     req.meta = this.getMetaData();
-    this.logger.log(`Received requesest with the following metada: ${JSON.stringify(req.meta)}`);
+    this.logger.log(`Received request with the following metada: ${JSON.stringify(req.meta)}`);
     next();
   }
 
