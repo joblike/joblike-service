@@ -3,7 +3,6 @@ import { AuthModule } from './auth/auth.module';
 import { HealthController } from './health/health.controller';
 import { GatewayModule } from './gateway/gateway.module';
 import configuration from './config/factory.config';
-//import configuration from  './config/envs/local.config'
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
